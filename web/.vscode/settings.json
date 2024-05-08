@@ -1,0 +1,9 @@
+{
+    "editor.stickyTabStops": true,
+    "editor.stickyScroll.scrollWithEditor": true,
+    "workbench.tree.enableStickyScroll": true,
+    "bookmarks.experimental.enableNewStickyEngine": true,
+    "notebook.stickyScroll.enabled": true,
+    "terminal.integrated.stickyScroll.enabled": false,
+    "eslint.enable": true
+}
