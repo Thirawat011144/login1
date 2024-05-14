@@ -13,6 +13,10 @@ const UsersModel = conn.define("users", {
   password: {
     type: DataTypes.STRING(255),
   },
+  role:{
+    type:DataTypes.STRING(48),
+    defaultValue:'user'
+  }
 });
 // UsersModel.sync({ alter: true })
 //   .then(() => {

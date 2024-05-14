@@ -26,16 +26,18 @@ const handleSignIn = async () => {
         timer: 2000,
       });
       localStorage.setItem(config.token_name, response.data.token);
-      router.push('/home-view');
+
+
+
+
+      // router.push('/home-view');
+      // console.log("sss", response.data.payload.role)
+      if (response.data.payload.role === "admin") {
+        router.push('/admin-index')
+      } else {
+        router.push('/user-index')
+      }
     }
-    //  else  {
-    //   Swal.fire({
-    //     title: "Sign In",
-    //     text: "ไม่พอข้อมูลในระบบ",
-    //     icon: "warning",
-    //     timer: 2000,
-    //   });
-    // }
   } catch (error) {
     console.log(error);
     Swal.fire({
@@ -45,6 +47,15 @@ const handleSignIn = async () => {
     });
   }
 }
+// สร้าง redirect
+
+// const roleRedirect = (role) => {
+//   if(role === 'admin'){
+
+//   }else{
+
+//   }
+// }
 </script>
 
 <template>

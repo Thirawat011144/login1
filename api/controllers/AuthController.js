@@ -104,30 +104,30 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const existingUser = await UsersModel.findOne({
-      where: { userName: req.body.userName
-       },
+      where: {
+        userName: req.body.userName
+      },
     });
 
     if (!existingUser) {
-      return res.status(400).json({message:"Username or Password Invalid"});
+      return res.status(400).json({ message: "Username or Password Invalid" });
     }
 
     const isMatch = await bcrypt.compare(req.body.password, existingUser.password);
     if (!isMatch) {
-      return res.status(400).json({message:"Username or Password Invalid"});
+      return res.status(400).json({ message: "Username or Password Invalid" });
     }
 
     const payload = {
-      existingUser: {
-        name: existingUser.userName
-      }
+      name: existingUser.userName,
+      role: existingUser.role
     };
-    
+
     jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' }, (error, token) => {
       if (error) {
         throw error;
       }
-      res.json({ token, payload ,message:"Success"});
+      res.json({ token, payload, message: "Success" });
     });
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -135,13 +135,13 @@ router.post("/login", async (req, res) => {
 });
 
 
-router.get("/login", authenticateToken, async (req, res) => {
-  try {
-    const users = await UsersModel.findAll();
-    res.send(users);
-  } catch (e) {
-    res.status(500).send({ message: e.message });
-  }
-});
+// router.get("/login", authenticateToken, async (req, res) => {
+//   try {
+//     const users = await UsersModel.findAll();
+//     res.send(users);
+//   } catch (e) {
+//     res.status(500).send({ message: e.message });
+//   }
+// });
 
 module.exports = router;

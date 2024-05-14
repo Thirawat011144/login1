@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>
-            Home Page
+            Home Page Admin
         </h2>
     </div>
 </template>
