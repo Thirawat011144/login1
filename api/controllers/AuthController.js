@@ -134,6 +134,21 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// router.get("/login/info" ,async (req, res) =>{
+//   try {
+//     const userName = await UsersModel.findOne({
+//       where:{
+//         userName:req.body.userName
+//       }
+//     }) 
+//     const payload = {
+//       name:userName.userName
+//     }
+//     res.json({payload})
+//   } catch (error) {
+//     res.status(500).send({message:error.message})
+//   }
+// })
 
 // router.get("/login", authenticateToken, async (req, res) => {
 //   try {

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import RegisterView from '@/views/RegisterView.vue'
-import LoginView from '@/views/LoginView.vue'
+import RegisterView from '@/views/auth/RegisterView.vue'
+import LoginView from '@/views/auth/LoginView.vue'
 import HomePageView from '@/views/admin/HomePageView.vue'
 import HomePageUser from '@/views/user/HomePageUser.vue'
 import config from '@/config'
@@ -51,6 +51,8 @@ const router = createRouter({
           const payload = JSON.parse(atob(token.split('.')[1]));
           if (payload.role === 'admin') {
             next();
+          } else if(payload.role === 'user'){
+            next('/user-index')
           } else {
             next('/login');
           }

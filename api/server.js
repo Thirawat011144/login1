@@ -32,6 +32,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const jwt = require('jsonwebtoken')
 const AuthController = require("./controllers/AuthController");
+const AdminController = require("./controllers/AdminController") //new
 
 const app = express();
 const port = 3000;
@@ -41,7 +42,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 
-app.use('/api', AuthController)
+app.use('/api', AuthController);
+app.use('/api', AdminController)
+
 
 
 app.listen(port, () => {
