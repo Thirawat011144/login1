@@ -28,13 +28,14 @@ const handleSignIn = async () => {
         timer: 2000,
       });
       localStorage.setItem(config.token_name, response.data.token);
-      if (response.data.payload.role === "admin") {
+      // console.log("sss", response)
+      if (response.data.data.role === "admin") {
         router.push('/admin-index')
       } else {
         router.push('/user-index')
       }
-      console.log("sss", response)
-      const loggedInUserName = response.data.payload.name
+
+      const loggedInUserName = response.data.data.name
       store.dispatch('updateUserName', loggedInUserName);
     }
   } catch (error) {

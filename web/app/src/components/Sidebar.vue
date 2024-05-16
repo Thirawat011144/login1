@@ -5,19 +5,19 @@ import axios from 'axios';
 import config from '@/config';
 import { mapGetters } from 'vuex';
 import { useStore } from 'vuex'; // นำเข้า useStore เพื่อใช้ Vuex store
+import { RouterLink, RouterView } from 'vue-router'
 
 
 const store = useStore(); // นำเข้า Vuex store เพื่อใช้งาน
 
+onMounted(() => {
+    store.dispatch('retrieveUserName'); // เรียกใช้ action เพื่อดึงข้อมูล userName
+});
+
+
 const getUserName = computed(() => store.state.userName);
-// cons(getUserName.value);
+// console.log(getUserName)
 
-// const userName = ref('');
-
-// onMounted(() => {
-//     console.log('Component mounted');
-//     fetchData();
-// });
 
 // const fetchData = async () => {
 //     try {
@@ -77,7 +77,7 @@ const getUserName = computed(() => store.state.userName);
                     <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                     <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -86,7 +86,7 @@ const getUserName = computed(() => store.state.userName);
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./index.html" class="nav-link active">
+                                <a href="./index.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Dashboard v1</p>
                                 </a>
@@ -105,7 +105,7 @@ const getUserName = computed(() => store.state.userName);
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
@@ -113,28 +113,28 @@ const getUserName = computed(() => store.state.userName);
                                 <span class="right badge badge-danger">New</span>
                             </p>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-copy"></i>
                             <p>
-                                Layout Options
+                                Edit Options
                                 <i class="fas fa-angle-left right"></i>
-                                <span class="badge badge-info right">6</span>
+                                <span class="badge badge-info right">3</span>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="pages/layout/top-nav.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Top Navigation</p>
+                                    <p>Teacher</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                <router-link to="/admin-index/list-student" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Top Navigation + Sidebar</p>
-                                </a>
+                                    <p>Student</p>
+                                </router-link>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/layout/boxed.html" class="nav-link">
@@ -710,6 +710,9 @@ const getUserName = computed(() => store.state.userName);
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
+        </div>
+        <div>
+            <router-view></router-view>
         </div>
         <!-- /.sidebar -->
     </aside>

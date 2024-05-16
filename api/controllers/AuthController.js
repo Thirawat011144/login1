@@ -90,8 +90,14 @@ router.post("/register", async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(req.body.password, salt);
       const result = await UsersModel.create({
+        name: req.body.name,
+        surename: req.body.surename,
         userName: req.body.userName,
         password: hashedPassword,
+        company: req.body.company,
+        year: req.body.selectedYear,
+        branch: req.body.selectedYear,
+        phoneNumber: req.body.phoneNumber
       });
       await result.save();
       res.json({ message: "Success", result: result });
@@ -118,16 +124,16 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Username or Password Invalid" });
     }
 
-    const payload = {
+    const data = {
       name: existingUser.userName,
       role: existingUser.role
     };
 
-    jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' }, (error, token) => {
+    jwt.sign(data, process.env.SECRET_KEY, { expiresIn: '1h' }, (error, token) => {
       if (error) {
         throw error;
       }
-      res.json({ token, payload, message: "Success" });
+      res.json({ token, data, message: "Success" });
     });
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -150,13 +156,13 @@ router.post("/login", async (req, res) => {
 //   }
 // })
 
-// router.get("/login", authenticateToken, async (req, res) => {
-//   try {
-//     const users = await UsersModel.findAll();
-//     res.send(users);
-//   } catch (e) {
-//     res.status(500).send({ message: e.message });
-//   }
-// });
+router.get("/fetchData", async (req, res) => {
+  try {
+    const users = await UsersModel.findAll();
+    res.send(users);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+});
 
 module.exports = router;

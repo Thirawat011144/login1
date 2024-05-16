@@ -5,6 +5,7 @@ import LoginView from '@/views/auth/LoginView.vue'
 import HomePageView from '@/views/admin/HomePageView.vue'
 import HomePageUser from '@/views/user/HomePageUser.vue'
 import config from '@/config'
+import ListStudent from '../views/admin/ListStudent.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,13 +52,20 @@ const router = createRouter({
           const payload = JSON.parse(atob(token.split('.')[1]));
           if (payload.role === 'admin') {
             next();
-          } else if(payload.role === 'user'){
+          } else if (payload.role === 'user') {
             next('/user-index')
           } else {
             next('/login');
           }
         }
       }
+      , children: [
+        {
+          path: 'list-student',
+          name: 'list-student',
+          component: ListStudent
+        }
+      ]
     },
     {
       path: '/user-index',
@@ -71,7 +79,12 @@ const router = createRouter({
           next()
         }
       }
-    }
+    },
+    // {
+    //   path:'/list-student',
+    //   name:'list-student',
+    //   component:ListStudent
+    // }
   ]
 })
 

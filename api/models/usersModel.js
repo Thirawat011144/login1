@@ -7,15 +7,33 @@ const UsersModel = conn.define("users", {
     primaryKey: true,
     autoIncrement: true,
   },
+  name: {
+    type: DataTypes.STRING(50),
+  },
+  surename: {
+    type: DataTypes.STRING(50)
+  },
   userName: {
     type: DataTypes.STRING(255),
   },
   password: {
     type: DataTypes.STRING(255),
   },
-  role:{
-    type:DataTypes.STRING(48),
-    defaultValue:'user'
+  company: {
+    type: DataTypes.STRING(100),
+  },
+  year: {
+    type: DataTypes.STRING(48),
+  },
+  branch: {
+    type: DataTypes.STRING(48)
+  },
+  phoneNumber: {
+    type:DataTypes.BIGINT
+  },
+  role: {
+    type: DataTypes.STRING(48),
+    defaultValue: 'user'
   }
 });
 // UsersModel.sync({ alter: true })

@@ -10,17 +10,18 @@ export default createStore({
   mutations: {
     setUserName(state, userName) {
       state.userName = userName;
-    },
-    clearUserData(state) {
-      state.userName = '';
+      localStorage.setItem('userName', userName);
     }
   },
   actions: {
     updateUserName({ commit }, userName) {
       commit('setUserName', userName);
     },
-    logout({ commit }) {
-      commit('clearUserData')
+    retrieveUserName({ commit }) {
+      const storedUserName = localStorage.getItem('userName');
+      if (storedUserName) {
+        commit('setUserName', storedUserName);
+      }
     }
   },
   getters: {
