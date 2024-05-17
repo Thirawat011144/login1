@@ -5,7 +5,9 @@ import LoginView from '@/views/auth/LoginView.vue'
 import HomePageView from '@/views/admin/HomePageView.vue'
 import HomePageUser from '@/views/user/HomePageUser.vue'
 import config from '@/config'
-import ListStudent from '../views/admin/ListStudent.vue'
+import ListStudentYear2 from '../views/admin/ListDataStudent/Year2.vue'
+import EditStudent from '../views/admin/EditStudent.vue'
+import Year2uni from '../views/admin/ListDataStudent/Year2uni.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,7 +65,17 @@ const router = createRouter({
         {
           path: 'list-student',
           name: 'list-student',
-          component: ListStudent
+          component: ListStudentYear2
+        },
+        {
+          path: 'list-student-two',
+          name: 'list-student-two',
+          component: Year2uni
+        },
+        {
+          path: 'edit-student/:id',
+          name: 'edit-student',
+          component: EditStudent
         }
       ]
     },

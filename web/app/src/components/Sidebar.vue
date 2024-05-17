@@ -53,7 +53,7 @@ const getUserName = computed(() => store.state.userName);
                     <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">{{ getUserName }}</a>
+                    <router-link to="/admin-index"> <a href="#" class="d-block">{{ getUserName }}</a> </router-link>
                 </div>
             </div>
 

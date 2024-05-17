@@ -29,7 +29,10 @@ const UsersModel = conn.define("users", {
     type: DataTypes.STRING(48)
   },
   phoneNumber: {
-    type:DataTypes.BIGINT
+    type:DataTypes.STRING(48)
+  },
+  idStudent:{
+    type:DataTypes.STRING(48)
   },
   role: {
     type: DataTypes.STRING(48),

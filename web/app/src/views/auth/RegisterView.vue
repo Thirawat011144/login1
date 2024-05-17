@@ -16,6 +16,7 @@ const company = ref('');
 const selectedYear = ref(null);
 const selectedBranch = ref(null)
 const phoneNumber = ref('')
+const idStudent = ref('')
 
 
 
@@ -39,7 +40,8 @@ const handleSignUp = async () => {
       company: company.value,
       selectedYear: selectedYear.value,
       selectedBranch: selectedBranch.value,
-      phoneNumber: phoneNumber.value
+      phoneNumber: phoneNumber.value,
+      idStudent: idStudent.value
     };
     console.log(payload)
     const response = await axios.post(`${config.api_path}/api/register`, payload);
@@ -188,6 +190,10 @@ const handleSignUp = async () => {
                   <div class="form-group">
                     <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control"
                       placeholder="Your Phone *" value="" v-model="phoneNumber" />
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="txtEmpPhone" class="form-control" placeholder="Your Student ID" value=""
+                      v-model="idStudent" />
                   </div>
                   <!-- <div class="form-group">
                     <select class="form-control">

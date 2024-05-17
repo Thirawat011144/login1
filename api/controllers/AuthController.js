@@ -96,8 +96,9 @@ router.post("/register", async (req, res) => {
         password: hashedPassword,
         company: req.body.company,
         year: req.body.selectedYear,
-        branch: req.body.selectedYear,
-        phoneNumber: req.body.phoneNumber
+        branch: req.body.selectedBranch,
+        phoneNumber: req.body.phoneNumber,
+        idStudent: req.body.idStudent
       });
       await result.save();
       res.json({ message: "Success", result: result });
@@ -158,11 +159,63 @@ router.post("/login", async (req, res) => {
 
 router.get("/fetchData", async (req, res) => {
   try {
-    const users = await UsersModel.findAll();
+    const users = await UsersModel.findAll({
+      attributes: { exclude: ['password'] } // ระบุฟิลด์ที่ไม่ต้องการรวมในผลลัพธ์
+    });
     res.send(users);
   } catch (e) {
     res.status(500).send({ message: e.message });
   }
 });
+
+router.get("/fetch/data/value/:id", async (req, res) => {
+  try {
+    const user = await UsersModel.findByPk(req.params.id, {
+      // attributes: { exclude: ['password'] } // ระบุฟิลด์ที่ไม่ต้องการรวมในผลลัพธ์
+    });
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    res.send(user);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+});
+
+router.put("/update/data/:id", async (req, res) => {
+  try {
+    const user = await UsersModel.findByPk(req.params.id);
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    // อัปเดตข้อมูลผู้ใช้จาก payload ที่ได้รับ
+    const { name, surename, userName, company, branch, year, phoneNumber, idStudent } = req.body;
+
+    Object.assign(user, { name, surename, userName, company, branch, year, phoneNumber, idStudent });
+
+    // บันทึกการเปลี่ยนแปลง
+    await user.save();
+
+    res.json({ data: user, message: "Success" });
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+});
+
+
+router.delete("/remove/data/:id", async (req, res) => {
+  try {
+    const user = await UsersModel.findByPk(req.params.id);
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    await user.destroy();
+    res.send({ message: "User deleted successfully" });
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+});
+
 
 module.exports = router;
